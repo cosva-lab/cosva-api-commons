@@ -1,3 +1,3 @@
-export { injectSecrets } from './helpers/injectSecrets';
+export * from './helpers';
 
 export { withEnvInjection } from './lambdaWrapper';

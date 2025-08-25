@@ -32,7 +32,7 @@ export function withEnvInjection<Func extends Handler<unknown, unknown>>(
 
         await injectSecrets(secretArn);
 
-        if (options.preload) await options.preload();
+        await options.preload?.();
         initialized = true;
       }
 

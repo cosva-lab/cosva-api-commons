@@ -9,7 +9,7 @@ export const injectSecrets = async (secretArn: string): Promise<Record<string, s
   const command = new GetSecretValueCommand({ SecretId: secretArn });
 
   const data = await client.send(command);
-  if (!data.SecretString) throw new Error('No secrets found in AWS Secrets Manager');
+  if (!data?.SecretString) throw new Error('No secrets found in AWS Secrets Manager');
 
   const awsSecrets = JSON.parse(data.SecretString);
   process.env.GOOGLE_CLIENT_ID = awsSecrets.GOOGLE_CLIENT_ID;

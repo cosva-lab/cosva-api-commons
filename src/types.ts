@@ -2,6 +2,7 @@ type Callback<TResult = unknown> = (error?: Error | string | null, result?: TRes
 
 export type Handler<TEvent = unknown, TResult = unknown> = (
   event: TEvent,
-  context: unknown,
+  // eslint-disable-next-line
+  context: any,
   callback: Callback<TResult>,
 ) => void | Promise<TResult>;

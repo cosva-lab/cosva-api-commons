@@ -5,6 +5,8 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
+    "clean": "rimraf lib",
+    "prebuild": "npm run clean",
     "build": "tsc",
     "format": "prettier --write \"src/**/*.(js|ts)\"",
     "lint": "eslint src --ext .js,.ts",

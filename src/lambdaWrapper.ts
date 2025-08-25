@@ -6,9 +6,9 @@ import { isWarmupEvent } from './utils/eventUtils';
 export interface LambdaWrapperOptions {
   /**
    * Returns the ARN of the secret to inject.
-   * @default SECRET_ARN
+   * @default process.env.SECRET_ARN || process.env.SECRETS_ARN
    */
-  secretArn?: () => string;
+  secretsArn?: () => string;
   preload?: () => Promise<void>; // optional: preload logic
 }
 

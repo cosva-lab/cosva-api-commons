@@ -1,6 +1,6 @@
 {
   "name": "@cosva-lab/api-commons",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "TypeScript NPM Module Boilerplate",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -55,5 +55,8 @@
   },
   "files": [
     "lib/**/*"
-  ]
+  ],
+  "dependencies": {
+    "axios": "^1.11.0"
+  }
 }

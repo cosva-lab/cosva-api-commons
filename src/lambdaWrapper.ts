@@ -4,7 +4,11 @@ import type { Handler } from './types';
 import { isWarmupEvent } from './utils/eventUtils';
 
 export interface LambdaWrapperOptions {
-  secretArnEnvVar?: string; // default: SECRET_ARN
+  /**
+   * Returns the ARN of the secret to inject.
+   * @default SECRET_ARN
+   */
+  secretArn?: () => string;
   preload?: () => Promise<void>; // optional: preload logic
 }
 
@@ -13,9 +17,13 @@ export interface LambdaWrapperOptions {
  */
 export function withEnvInjection<Func extends Handler<unknown, unknown>>(
   loadHandler: () => Promise<Func>,
-  options: LambdaWrapperOptions = {},
+  baseOptions: LambdaWrapperOptions = {},
 ): Func {
   let initialized = false;
+  const options = {
+    secretsArn: () => process.env.SECRET_ARN || process.env.SECRETS_ARN,
+    ...baseOptions,
+  };
 
   const wrappedHandler: Handler = async (event, context, callback) => {
     // 🔥 Handle warmup events
@@ -27,8 +35,8 @@ export function withEnvInjection<Func extends Handler<unknown, unknown>>(
     try {
       // 🔑 Inject secrets once
       if (!initialized) {
-        const secretArn = process.env[options.secretArnEnvVar || 'SECRET_ARN'];
-        if (!secretArn) throw new Error('SECRET_ARN is not defined');
+        const secretArn = options.secretsArn();
+        if (!secretArn) throw new Error('options.secretArn need to be defined');
 
         await injectSecrets(secretArn);
 

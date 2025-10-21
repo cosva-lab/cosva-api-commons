@@ -27,10 +27,7 @@ export function withEnvInjection<Func extends Handler<unknown, unknown>>(
 
   const wrappedHandler: Handler = async (event, context, callback) => {
     // 🔥 Handle warmup events
-    if (isWarmupEvent(event)) {
-      console.log('Lambda is warm!');
-      return callback(null, { message: 'Lambda is warm!' });
-    }
+    if (isWarmupEvent(event)) return callback(null, { message: 'Lambda is warm!' });
 
     try {
       // 🔑 Inject secrets once

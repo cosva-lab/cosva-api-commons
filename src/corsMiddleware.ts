@@ -7,12 +7,12 @@ interface CorsOptions {
   packageName: string;
 }
 
-const corsMiddleware = (options: CorsOptions) => {
+const corsMiddleware = (options?: CorsOptions) => {
   const {
     origin = [/^.*\.cosva\.app$/, 'https://cosva.app'],
     isDev = process.env.NODE_ENV !== 'production',
     packageName = 'com.cosva.app',
-  } = options;
+  } = options ?? {};
 
   return (req: Request, res: Response, next: NextFunction) => {
     const xRequestedWith = req.header('X-Requested-With');

@@ -16,17 +16,10 @@ const corsMiddleware = (options?: CorsOptions) => {
 
   return (req: Request, res: Response, next: NextFunction) => {
     const xRequestedWith = req.header('X-Requested-With');
-
-    // Permitir CORS solo si viene desde la app
-    if (xRequestedWith === packageName) {
-      cors({
-        origin: ['localhost', ...origin],
-      })(req, res, next);
-    } else {
-      cors({
-        origin: isDev ? '*' : origin,
-      })(req, res, next);
-    }
+    const isAppRequest = xRequestedWith === packageName;
+    cors({
+      origin: isDev || isAppRequest ? '*' : origin,
+    })(req, res, next);
   };
 };
 

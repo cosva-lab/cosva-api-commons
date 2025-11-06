@@ -23,10 +23,11 @@ export const injectSecrets = async (
   const awsSecrets = JSON.parse(data.SecretString) as Secrets;
 
   // 🧩 Inject into process.env
-  process.env.GOOGLE_CLIENT_ID = awsSecrets.GOOGLE_CLIENT_ID;
-  process.env.GOOGLE_CLIENT_SECRET = awsSecrets.GOOGLE_CLIENT_SECRET;
-  process.env.SECRET_KEY = awsSecrets.SECRET_KEY;
-  process.env.DATABASE_URL = awsSecrets.DATABASE_URL;
+  process.env.GOOGLE_CLIENT_ID ||= awsSecrets.GOOGLE_CLIENT_ID;
+  process.env.GOOGLE_CLIENT_SECRET ||= awsSecrets.GOOGLE_CLIENT_SECRET;
+  process.env.SECRET_KEY ||= awsSecrets.SECRET_KEY;
+  process.env.DATABASE_URL ||= awsSecrets.DATABASE_URL;
+  process.env.ALLOW_INSECURE_SSL ||= awsSecrets.ALLOW_INSECURE_SSL;
 
   // 🗄️ Cache result with timestamp
   secrets = awsSecrets;

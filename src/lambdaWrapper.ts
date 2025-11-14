@@ -1,7 +1,6 @@
 // lambdaWrapper.ts
 import { injectSecrets } from './helpers/injectSecrets';
 import type { Handler } from './types';
-import { isWarmupEvent } from './utils/eventUtils';
 
 export interface LambdaWrapperOptions {
   /**
@@ -26,9 +25,6 @@ export function withEnvInjection<Func extends Handler<unknown, unknown>>(
   };
 
   const wrappedHandler: Handler = async (event, context, callback) => {
-    // 🔥 Handle warmup events
-    if (isWarmupEvent(event)) return callback(null, { message: 'Lambda is warm!' });
-
     try {
       // 🔑 Inject secrets once
       if (!initialized) {

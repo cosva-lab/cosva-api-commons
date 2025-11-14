@@ -4,6 +4,32 @@
   "description": "TypeScript NPM Module Boilerplate",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./jwt": {
+      "types": "./lib/jwt/index.d.ts",
+      "default": "./lib/jwt/index.js"
+    },
+    "./lambdaWrapper": {
+      "types": "./lib/lambdaWrapper.d.ts",
+      "default": "./lib/lambdaWrapper.js"
+    },
+    "./helpers": {
+      "types": "./lib/helpers/index.d.ts",
+      "default": "./lib/helpers/index.js"
+    },
+    "./corsMiddleware": {
+      "types": "./lib/corsMiddleware.d.ts",
+      "default": "./lib/corsMiddleware.js"
+    },
+    "./utils/eventUtils": {
+      "types": "./lib/utils/eventUtils.d.ts",
+      "default": "./lib/utils/eventUtils.js"
+    }
+  },
   "scripts": {
     "clean": "rimraf lib",
     "prebuild": "npm run clean",
